@@ -12,9 +12,7 @@
 from ovos_utils.waiting_for_mycroft.base_skill import MycroftSkill, FallbackSkill
 from ovos_utils.waiting_for_mycroft.common_play import CommonPlaySkill, CPSMatchType
 from ovos_utils.waiting_for_mycroft.skill_gui import SkillGUI
-from ovos_utils.skills import make_priority_skill
 import mycroft
-
 
 mycroft.enclosure.gui.SkillGUI = SkillGUI
 
@@ -29,11 +27,37 @@ mycroft.skills.common_play_skill.CPSMatchType = CPSMatchType
 mycroft.skills.FallbackSkill = FallbackSkill
 mycroft.skills.fallback_skill.FallbackSkill = FallbackSkill
 
+from mycroft.configuration import LocalConf, USER_CONFIG
+
 
 class MonkeyPatcherSkill(MycroftSkill):
     def __init__(self):
         super(MonkeyPatcherSkill, self).__init__()
-        make_priority_skill(self.skill_id)
+        self.make_priority()
+
+    # make priority skill in first install
+    def get_intro_message(self):
+        self.make_priority()
+        self.speak_dialog("installed")
+
+    def make_priority(self):
+        # load the current list of already blacklisted skills
+        priority_list = self.config_core["skills"]["priority_skills"]
+
+        # add the skill to the blacklist
+        if self.skill_id not in priority_list:
+            priority_list.insert(0, self.skill_id)
+
+            # load the user config file (~/.mycroft/mycroft.conf)
+            conf = LocalConf(USER_CONFIG)
+            if "skills" not in conf:
+                conf["skills"] = {}
+
+            # update the blacklist field
+            conf["skills"]["priority_skills"] = priority_list
+
+            # save the user config file
+            conf.store()
 
 
 def create_skill():

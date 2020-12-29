@@ -7,7 +7,7 @@ Applies patches to mycroft-core at runtime
 Contributing to Mycroft is a bit of a fight with upstream
 
 this skill applies a bunch of monkey patches at runtime to add/fix things 
-not merged into mycroft-core, full details in [ovos_utils PR#15)](https://github.com/OpenVoiceOS/ovos_utils/pull/15)
+not merged into mycroft-core, full details in [ovos_utils PR#15](https://github.com/OpenVoiceOS/ovos_utils/pull/15)
 
 ### Patches
 
