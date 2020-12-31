@@ -32,18 +32,23 @@ mycroft.skills.fallback_skill.FallbackSkill = FallbackSkill
 class MonkeyPatcherSkill(MycroftSkill):
     def __init__(self):
         super(MonkeyPatcherSkill, self).__init__()
-        self.make_priority()
 
     # make priority skill in first install
     def get_intro_message(self):
         self.make_priority()
         self.speak_dialog("installed")
 
+    def intialize(self):
+        self.make_priority()
+
     def make_priority(self):
-        # load the current list of already blacklisted skills
+        if not self.skill_id:
+            # might not be set yet....
+            return
+        # load the current list of priority skills
         priority_list = self.config_core["skills"]["priority_skills"]
 
-        # add the skill to the blacklist
+        # add the skill to the priority list
         if self.skill_id not in priority_list:
             priority_list.insert(0, self.skill_id)
 
@@ -52,7 +57,7 @@ class MonkeyPatcherSkill(MycroftSkill):
             if "skills" not in conf:
                 conf["skills"] = {}
 
-            # update the blacklist field
+            # update the priority skills field
             conf["skills"]["priority_skills"] = priority_list
 
             # save the user config file
