@@ -38,7 +38,7 @@ class MonkeyPatcherSkill(MycroftSkill):
         self.make_priority()
         self.speak_dialog("installed")
 
-    def intialize(self):
+    def initialize(self):
         self.make_priority()
 
     def make_priority(self):
