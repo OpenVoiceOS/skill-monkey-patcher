@@ -21,12 +21,14 @@ mycroft.enclosure.gui.SkillGUI = SkillGUI
 mycroft.skills.skill_api_method = skill_api_method
 mycroft.skills.mycroft_skill.MycroftSkill = MycroftSkill
 mycroft.skills.MycroftSkill = MycroftSkill
+mycroft.skills.core.MycroftSkill = MycroftSkill
 mycroft.skills.CommonPlaySkill = CommonPlaySkill
 mycroft.skills.common_play_skill.CommonPlaySkill = CommonPlaySkill
 mycroft.skills.CPSMatchType = CPSMatchType
 mycroft.skills.common_play_skill.CPSMatchType = CPSMatchType
 mycroft.skills.FallbackSkill = FallbackSkill
 mycroft.skills.fallback_skill.FallbackSkill = FallbackSkill
+mycroft.skills.core.FallbackSkill = FallbackSkill
 
 
 class MonkeyPatcherSkill(MycroftSkill):
